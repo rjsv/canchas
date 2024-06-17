@@ -9,63 +9,67 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/'; // Página a la que redirigir después del registro
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+    public function showRegistrationForm()
+    {
+        return view('register');
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'name' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'dni' => ['nullable', 'string', 'max:191'],
+            'category' => ['nullable', 'string', 'max:191'],
+            'birthdate' => ['nullable', 'date'],
+            'sex' => ['required', 'integer', 'between:0,1'],
+            'phone' => ['nullable', 'string', 'max:191'],
+            'photo' => ['nullable', 'string', 'max:191'],
+            'level' => ['required', 'integer'],
+            'dominant_hand' => ['required', 'integer', 'between:0,1'],
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
     protected function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
+            'dni' => $data['dni'],
+            'category' => $data['category'],
+            'birthdate' => $data['birthdate'],
+            'sex' => $data['sex'],
+            'phone' => $data['phone'],
+            'photo' => $data['photo'],
+            'level' => $data['level'],
+            'dominant_hand' => $data['dominant_hand'],
         ]);
+    }
+
+    // Método para manejar el registro
+    public function register(Request $request)
+    {
+        // Validación de los datos del formulario
+        $this->validator($request->all())->validate();
+
+        // Creación del usuario
+        $user = $this->create($request->all());
+
+        // Puedes autenticar al usuario automáticamente después del registro si lo deseas
+        // Auth::login($user);
+
+        // Redirigir a la página principal o a donde desees después del registro
+        return redirect($this->redirectPath());
     }
 }

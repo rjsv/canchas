@@ -38,11 +38,18 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('login', 'Auth\LoginController@logout');
 
+
+Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('/register', 'Auth\RegisterController@register');
+
+Route::get('/reserva', 'ReservarController@index')->name('reserva');
+Route::get('/reservar/{cancha}', 'ReservarController@reservar')->name('reservar');
+
 // Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 // Route::post('login', [LoginController::class, 'login']);
 // Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/register', function () {
-    return view('register');
-});
+// Route::get('/register', function () {
+//     return view('register');
+// });

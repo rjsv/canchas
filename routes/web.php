@@ -30,3 +30,19 @@ Route::get('/schedules', function () {
 Route::get('/academy', function () {
     return view('academy');
 });
+
+// Route::get('/login', function () {
+//     return view('login');
+// });
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('login', 'Auth\LoginController@logout');
+
+// Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::post('login', [LoginController::class, 'login']);
+// Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+
+Route::get('/register', function () {
+    return view('register');
+});

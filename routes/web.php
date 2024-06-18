@@ -49,6 +49,9 @@ Route::get('/reserva', 'ReservarController@index')->name('reserva');
 Route::get('/reservar/{cancha}', 'ReservarController@reservar')->name('reservar');
 Route::post('/reserva', 'ReservarController@store')->name('reserva.store');
 
+Route::get('/mostrarPerfil', 'PerfilController@mostrarPerfil')->name('mostrarPerfil');
+
+
 Route::get('/success', function () {
     return view('success');
 })->name('success');

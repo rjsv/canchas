@@ -17,19 +17,16 @@ class CreateReservacionesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('court_id');
             $table->unsignedInteger('user_id');
-            $table->string('name');
-            $table->string('location');
-            $table->boolean('available');
             $table->date('date');
-            $table->string('status');
+            $table->time('time');
             $table->timestamps();
 
-            // Definir la clave foránea
+            // Definir la clave foránea para user_id
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
 
-        // Opcional: si la tabla 'courts' existe y se tiene un court_id como clave foránea
-        // $table->foreign('court_id')->references('id')->on('courts')->onDelete('cascade');
+            // Opcional: si la tabla 'courts' existe y se tiene un court_id como clave foránea
+            // $table->foreign('court_id')->references('id')->on('courts')->onDelete('cascade');
+        });
     }
 
     /**

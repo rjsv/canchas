@@ -4,32 +4,51 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
+use App\Reserva;
 
 class ReservarController extends Controller
 {
-    // Aplicar el middleware 'auth' a todas las acciones de este controlador
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    // Acción para mostrar la vista de canchas
     public function index()
     {
-        // Obtener el usuario autenticado
         $user = Auth::user();
-
-        // Pasar el usuario a la vista
         return view('canchas', compact('user'));
     }
 
-    // Acción para mostrar la vista de reservar
     public function reservar($cancha)
     {
-        // Obtener el usuario autenticado
         $user = Auth::user();
-
-        // Pasar el usuario y la cancha a la vista
         return view('reservar', compact('cancha', 'user'));
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'cancha' => 'required|string',
+            'fecha' => 'required|date',
+            'hora' => 'required|date_format:H:i',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('reservar', ['cancha' => $request->cancha])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        $reserva = new Reserva;
+        $reserva->court_id = $request->cancha;
+        $reserva->user_id = Auth::id();
+        $reserva->date = $request->fecha;
+        $reserva->time = $request->hora;
+        $reserva->save();
+
+        return redirect()->route('reserva')->with('success', 'Reserva realizada con éxito');
     }
 }

@@ -23,7 +23,8 @@ class UsersTableSeeder extends Seeder
             'phone' => '123-456-7890',
             'photo' => 'default.jpg',
             'level' => 1, // ejemplo de nivel
-            'dominant_hand' => 1 // booleano, por ejemplo 1 es diestro
+            'dominant_hand' => 1,
+            'is_active' => true // nuevo campo
         ]);
 
         User::create([
@@ -37,7 +38,8 @@ class UsersTableSeeder extends Seeder
             'phone' => '123-456-7890',
             'photo' => 'default.jpg',
             'level' => 1, // ejemplo de nivel
-            'dominant_hand' => 1 // booleano, por ejemplo 1 es diestro
+            'dominant_hand' => 1,
+            'is_active' => true // nuevo campo
         ]);
 
         User::create([
@@ -51,7 +53,8 @@ class UsersTableSeeder extends Seeder
             'phone' => '123-456-7890',
             'photo' => 'default.jpg',
             'level' => 1, // ejemplo de nivel
-            'dominant_hand' => 1 // booleano, por ejemplo 1 es diestro
+            'dominant_hand' => 1,
+            'is_active' => true // nuevo campo
         ]);
 
         User::create([
@@ -65,7 +68,8 @@ class UsersTableSeeder extends Seeder
             'phone' => '123-456-7890',
             'photo' => 'default.jpg',
             'level' => 1, // ejemplo de nivel
-            'dominant_hand' => 1 // booleano, por ejemplo 1 es diestro
+            'dominant_hand' => 1,
+            'is_active' => true // nuevo campo
         ]);
 
         User::create([
@@ -79,7 +83,8 @@ class UsersTableSeeder extends Seeder
             'phone' => '123-456-7890',
             'photo' => 'default.jpg',
             'level' => 1, // ejemplo de nivel
-            'dominant_hand' => 1 // booleano, por ejemplo 1 es diestro
+            'dominant_hand' => 1,
+            'is_active' => true // nuevo campo
         ]);
     }
 }

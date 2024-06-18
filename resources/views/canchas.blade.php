@@ -13,6 +13,19 @@
     <div class="container mt-5" style="padding-right:calc(20vw);padding-left:calc(20vw);">
         <img src="img/logo.webp" alt="">
         <h1 style="color:#739505;">Reserva de Cancha</h1>
+        
+        @if ($user)
+            <h2 style="color:#FFFFFF;">Bienvenido, {{ $user->name }}</h2>
+        @else
+            <h2 style="color:#FFFFFF;">Bienvenido, Invitado</h2>
+        @endif
+
+        @if ($user)
+        <form action="{{ route('logOut') }}" method="POST" class="text-center mt-3">
+            {{ csrf_field() }} <!-- Agrega el token CSRF aquí -->
+            <button type="submit" class="btn mb-2" style="background:#739505;color:white;">Cerrar sesión</button>
+        </form>
+        @endif
 
         <p class="text-white">Revisa nuestra disponibilidad y reserva la fecha y hora que más te convengan.</p>
 

@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('photo')->nullable();
             $table->tinyInteger('level')->default(0);
             $table->tinyInteger('dominant_hand')->default(0);
+            $table->boolean('is_active')->default(true); // Añadir este campo
             $table->rememberToken();
             $table->timestamps();
         });

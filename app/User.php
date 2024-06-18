@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'dni', 'category', 'birthdate', 'sex', 'phone', 'photo', 'level', 'dominant_hand',
+        'name', 'email', 'password', 'dni', 'category', 'birthdate', 'sex', 'phone', 'photo', 'level', 'dominant_hand','is_active',
     ];
 
     /**
@@ -38,5 +38,6 @@ class User extends Authenticatable
         'sex' => 'boolean',
         'level' => 'boolean',
         'dominant_hand' => 'boolean',
+        'is_active' => 'boolean',
     ];
 }

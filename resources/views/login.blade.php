@@ -20,7 +20,7 @@
             </ul>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('attemptLogin') }}">
             {{ csrf_field() }}
             <div class="mb-3">
                 <label for="email" class="form-label" style="color:white;">Correo electrónico</label>
@@ -35,7 +35,7 @@
                 <label class="form-check-label" for="remember" style="color:white;">Recordarme</label>
             </div>
             <div class="mb-3 text-center">
-                <button type="submit" class="btn" style="background:#739505;">Iniciar sesión</button>
+                <button type="submit" class="btn" style="background:#739505;color:white;">Iniciar sesión</button>
             </div>
         </form>
     </div>

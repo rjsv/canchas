@@ -35,8 +35,8 @@ Route::get('/academy', function () {
 //     return view('login');
 // });
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('login', 'Auth\LoginController@logout');
+Route::post('/attempt-login', 'Auth\LoginController@attemptLogin')->name('attemptLogin');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logOut');
 
 
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');

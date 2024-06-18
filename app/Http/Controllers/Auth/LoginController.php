@@ -4,11 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 use App\User;
 
 class LoginController extends Controller
 {
-    use \Illuminate\Foundation\Auth\AuthenticatesUsers;
+    use AuthenticatesUsers;
+
+    protected $redirectTo = '/reserva';
 
     public function __construct()
     {
@@ -20,39 +26,48 @@ class LoginController extends Controller
         return view('login');
     }
 
-    protected function login(Request $request)
+    public function attemptLogin(Request $request)
     {
-        // Validar los datos del formulario
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'email' => 'required|email|string',
             'password' => 'required|string',
         ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator->errors());
-        }
-
-        // Intentar iniciar sesión
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->has('remember'))) {
-            // Regenerar la sesión para prevenir fijación de sesión
+    
+        $credentials = $request->only('email', 'password');
+    
+        // Verificar el campo "remember"
+        $remember = $request->has('remember') && $request->get('remember') == true;
+    
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
-
-            // Redirigir al usuario autenticado
+    
+            Log::info('User logged in: ' . Auth::user()->email);
+    
             return $this->authenticated($request, Auth::user());
         }
-
-        // Si la autenticación falla
+    
+        Log::warning('Login attempt failed for: ' . $request->email);
+    
         return back()->withErrors(['email' => 'Correo electrónico o contraseña inválidos']);
     }
 
-    protected function authenticated(Request $request, $user)
+    public function authenticated(Request $request, $user)
     {
-        if ($user->is_active) { // Verificar si el usuario está activo antes de redirigir
+        if ($user->is_active) {
+            Log::info('User authenticated and active: ' . $user->email);
             return redirect()->intended($this->redirectPath());
         }
 
-        // Cerrar sesión si el usuario no está activo
+        Log::warning('User authenticated but inactive: ' . $user->email);
         Auth::logout();
         return back()->withErrors(['email' => 'Tu cuenta está inactiva. Por favor, contacta al soporte.']);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

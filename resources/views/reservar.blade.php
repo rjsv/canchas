@@ -11,7 +11,7 @@
 </head>
 <body style="background:#1A1A1A;">
     <div class="container mt-5" style="padding-right:calc(10vw);padding-left:calc(10vw);">
-        <img src="img/logo.webp" alt="">
+        <img src="{{ asset('img/logo.webp') }}" alt="">
         <h1 style="color:#739505;">Reservar Cancha {{ $cancha }}</h1>
 
         @if ($errors->any())

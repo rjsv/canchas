@@ -40,7 +40,7 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logOut');
 
 
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('/register', 'Auth\RegisterController@register');
+Route::post('/attempt-register', 'Auth\RegisterController@attemptRegister')->name('attemptRegister');
 
 Route::get('/reserva', 'ReservarController@index')->name('reserva');
 Route::get('/reservar/{cancha}', 'ReservarController@reservar')->name('reservar');
@@ -52,6 +52,9 @@ Route::post('/reserva', 'ReservarController@store')->name('reserva.store');
 Route::get('/success', function () {
     return view('success');
 })->name('success');
+Route::get('/thanksregister', function () {
+    return view('thanksregister');
+})->name('thanksregister');
 // Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 // Route::post('login', [LoginController::class, 'login']);
 // Route::post('logout', [LoginController::class, 'logout'])->name('logout');

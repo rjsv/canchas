@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request; // Importa la clase Request
 
 class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = '/'; // Página a la que redirigir después del registro
+    protected $redirectTo = '/thanksregister'; // Página a la que redirigir después del registro
 
     public function __construct()
     {
@@ -51,14 +53,14 @@ class RegisterController extends Controller
             'birthdate' => $data['birthdate'],
             'sex' => $data['sex'],
             'phone' => $data['phone'],
-            'photo' => $data['photo'],
+            // 'photo' => $data['photo'],
             'level' => $data['level'],
             'dominant_hand' => $data['dominant_hand'],
         ]);
     }
 
     // Método para manejar el registro
-    public function register(Request $request)
+    public function attemptRegister(Request $request) // Asegúrate de importar Request
     {
         // Validación de los datos del formulario
         $this->validator($request->all())->validate();

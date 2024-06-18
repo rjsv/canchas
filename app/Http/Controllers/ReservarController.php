@@ -49,6 +49,6 @@ class ReservarController extends Controller
         $reserva->time = $request->hora;
         $reserva->save();
 
-        return redirect()->route('reserva')->with('success', 'Reserva realizada con éxito');
+        return redirect()->route('success');
     }
 }

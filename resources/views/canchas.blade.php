@@ -23,8 +23,8 @@
         @if ($user)
         <form action="{{ route('logOut') }}" method="POST" class="text-center mt-3">
             {{ csrf_field() }} <!-- Agrega el token CSRF aquí -->
+            <a href="{{ route('mostrarPerfil') }}" class="btn btn-primary mb-2 mr-4">Ver Perfil</a>
             <button type="submit" class="btn mb-2" style="background:#739505;color:white;">Cerrar sesión</button>
-            <a href="{{ route('mostrarPerfil') }}" class="btn btn-primary">Ver Perfil</a> <!-- Botón para ver el perfil -->
         </form>
         @endif
 
